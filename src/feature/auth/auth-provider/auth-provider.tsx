@@ -3,7 +3,9 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { User } from '@supabase/auth-helpers-nextjs'
 import {
+  Dispatch,
   ReactNode,
+  SetStateAction,
   createContext,
   useContext,
   useEffect,
@@ -16,7 +18,10 @@ export type GlobalAuthState = {
 const initialState: GlobalAuthState = {
   user: undefined,
 }
-const AuthContext = createContext<GlobalAuthState>(initialState)
+const authContext = createContext<GlobalAuthState>(initialState)
+const setAuthContext = createContext<Dispatch<SetStateAction<GlobalAuthState>>>(
+  () => {}
+)
 
 type Props = { children: ReactNode }
 
@@ -42,7 +47,14 @@ export const AuthProvider = ({ children }: Props) => {
     return data.subscription.unsubscribe()
   }, [])
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
+  return (
+    <authContext.Provider value={user}>
+      <setAuthContext.Provider value={setUser}>
+        {children}
+      </setAuthContext.Provider>
+    </authContext.Provider>
+  )
 }
 
-export const useAuthContext = () => useContext(AuthContext)
+export const useAuthContext = () => useContext(authContext)
+export const useSetAuthContext = () => useContext(setAuthContext)

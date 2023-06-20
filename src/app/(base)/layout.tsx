@@ -1,6 +1,6 @@
-import { Footer } from '@/app/(root)/_component/footer'
-import { Header } from '@/app/(root)/_component/header'
-import { Wrapper } from '@/app/(root)/_component/wrapper'
+import { Footer } from '@/app/(base)/_component/footer'
+import { Header } from '@/app/(base)/_component/header'
+import { Wrapper } from '@/app/(base)/_component/wrapper'
 import { AuthProvider } from '@/feature/auth/auth-provider/auth-provider'
 import { ReactElement } from 'react'
 

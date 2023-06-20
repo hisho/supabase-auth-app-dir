@@ -4,6 +4,7 @@ import { Button } from '@/component/button/button'
 import { ErrorMessage } from '@/component/form/error-message/error-message'
 import { Input } from '@/component/form/input/input'
 import { Spacer } from '@/component/spacer/spacer'
+import { useSetAuthContext } from '@/feature/auth/auth-provider/auth-provider'
 import { useForm } from '@/lib/form/use-form'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
@@ -20,6 +21,7 @@ export const SignInForm = () => {
   const { formState, handleSubmit, register } = useForm({
     schema: signInSchema,
   })
+  const setAuthContext = useSetAuthContext()
 
   const handleSignIn = async ({
     email,
@@ -29,11 +31,12 @@ export const SignInForm = () => {
     password: string
   }) => {
     try {
-      await spabase.auth.signInWithPassword({
+      const { data } = await spabase.auth.signInWithPassword({
         email,
         password,
       })
-      router.refresh()
+      setAuthContext({ user: data.user })
+      router.push('/account')
     } catch (error) {
       console.log(error)
     }

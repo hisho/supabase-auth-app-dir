@@ -1,6 +1,6 @@
 'use client'
 
-import { Wrapper } from '@/app/(root)/_component/wrapper'
+import { Wrapper } from '@/app/(base)/_component/wrapper'
 import { Spacer } from '@/component/spacer/spacer'
 import { useSignOut } from '@/feature/auth/sign-out/use-sign-out'
 import Link from 'next/link'
