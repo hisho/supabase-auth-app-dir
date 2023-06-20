@@ -5,9 +5,12 @@ import { ErrorMessage } from '@/component/form/error-message/error-message'
 import { Input } from '@/component/form/input/input'
 import { Spacer } from '@/component/spacer/spacer'
 import { NEXT_PUBLIC_FRONTEND_URL } from '@/constant/constant'
+import { useSetAuthContext } from '@/feature/auth/auth-provider/auth-provider'
 import { useForm } from '@/lib/form/use-form'
+import { timer } from '@/util/timer/timer'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { z } from 'zod'
 
 const signUpSchema = z.object({
@@ -21,6 +24,8 @@ export const SignUpForm = () => {
   const { formState, handleSubmit, register } = useForm({
     schema: signUpSchema,
   })
+  const setAuthContext = useSetAuthContext()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSignUp = async ({
     email,
@@ -29,17 +34,24 @@ export const SignUpForm = () => {
     email: string
     password: string
   }) => {
+    setIsLoading(true)
     try {
-      await spabase.auth.signUp({
-        email,
-        options: {
-          emailRedirectTo: `${NEXT_PUBLIC_FRONTEND_URL}/auth/callback/`,
-        },
-        password,
-      })
-      router.refresh()
-    } catch (e) {
-      console.log(e)
+      const [result] = await Promise.allSettled([
+        spabase.auth.signUp({
+          email,
+          options: {
+            emailRedirectTo: `${NEXT_PUBLIC_FRONTEND_URL}/auth/callback/`,
+          },
+          password,
+        }),
+        timer(2000),
+      ])
+      if (result.status === 'fulfilled') {
+        setAuthContext({ user: result.value.data.user })
+        router.push('/account')
+      }
+    } catch (error) {
+      setIsLoading(false)
     }
   }
 
@@ -49,7 +61,7 @@ export const SignUpForm = () => {
         <label className={'block'}>
           <p>email</p>
           <Spacer size={1} />
-          <Input {...register('email')} />
+          <Input {...register('email')} disabled={isLoading} />
           {formState.errors.email?.message && (
             <ErrorMessage message={formState.errors.email.message} />
           )}
@@ -57,7 +69,7 @@ export const SignUpForm = () => {
         <label className={'block'}>
           <p>password</p>
           <Spacer size={1} />
-          <Input {...register('password')} />
+          <Input {...register('password')} disabled={isLoading} />
           {formState.errors.password?.message && (
             <ErrorMessage message={formState.errors.password.message} />
           )}
@@ -65,7 +77,9 @@ export const SignUpForm = () => {
       </div>
       <Spacer size={6} />
       <div className={'flex justify-center'}>
-        <Button>サインアップ</Button>
+        <Button className={'max-w-[160px]'} isLoading={isLoading}>
+          サインアップ
+        </Button>
       </div>
     </form>
   )
