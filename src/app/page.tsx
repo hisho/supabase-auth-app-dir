@@ -1,6 +1,6 @@
-import { CreateUserForm } from '@/app/_component/create-user-form'
-import { SigInInForm } from '@/app/_component/sigin-in-form'
-import { SigOutButton } from '@/app/_component/sign-out-button'
+import { CreateUserForm } from '@/app/(root)/_component/create-user-form'
+import { SigInInForm } from '@/app/(root)/_component/sigin-in-form'
+import { SigOutButton } from '@/app/(root)/_component/sign-out-button'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
