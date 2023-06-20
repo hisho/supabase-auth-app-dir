@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
 export const metadata = {
-  description: 'next app',
-  title: 'Next App',
+  description: 'Supabase Auth with Next.js App Directory',
+  title: 'Supabase Auth with Next.js App Directory',
 }
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body>{children}</body>
     </html>
   )
