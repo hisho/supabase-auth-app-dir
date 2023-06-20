@@ -1,6 +1,9 @@
 'use client'
 
+import { Button } from '@/component/button/button'
 import { ErrorMessage } from '@/component/form/error-message/error-message'
+import { Input } from '@/component/form/input/input'
+import { Spacer } from '@/component/spacer/spacer'
 import { NEXT_PUBLIC_FRONTEND_URL } from '@/constant/constant'
 import { useForm } from '@/lib/form/use-form'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -44,19 +47,28 @@ export const SignUpForm = () => {
     <div>
       <h1>サインアップ</h1>
       <form onSubmit={handleSubmit(handleSignUp)}>
-        <label>
-          <input {...register('email')} />
-          {formState.errors.email?.message && (
-            <ErrorMessage message={formState.errors.email.message} />
-          )}
-        </label>
-        <label>
-          <input {...register('password')} />
-          {formState.errors.password?.message && (
-            <ErrorMessage message={formState.errors.password.message} />
-          )}
-        </label>
-        <button>作成</button>
+        <div className={'flex flex-col gap-4'}>
+          <label className={'block'}>
+            <p>email</p>
+            <Spacer size={1} />
+            <Input {...register('email')} />
+            {formState.errors.email?.message && (
+              <ErrorMessage message={formState.errors.email.message} />
+            )}
+          </label>
+          <label className={'block'}>
+            <p>password</p>
+            <Spacer size={1} />
+            <Input {...register('password')} />
+            {formState.errors.password?.message && (
+              <ErrorMessage message={formState.errors.password.message} />
+            )}
+          </label>
+        </div>
+        <Spacer size={6} />
+        <div className={'flex justify-center'}>
+          <Button>サインアップ</Button>
+        </div>
       </form>
     </div>
   )
