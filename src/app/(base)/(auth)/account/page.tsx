@@ -1,8 +1,17 @@
 import { Spacer } from '@/component/spacer/spacer'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const spabase = createServerComponentClient({ cookies })
+  const user = await spabase.auth.getUser()
+  return {
+    title: user.data.user?.email ?? 'account',
+  }
+}
 
 const Page = async () => {
   const spabase = createServerComponentClient({ cookies })
