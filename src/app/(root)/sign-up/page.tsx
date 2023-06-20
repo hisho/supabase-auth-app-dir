@@ -1,5 +1,9 @@
 import { SignUpForm } from '@/feature/auth/sign-up/sign-up-form'
+import { Metadata } from 'next'
 
+export const metadata: Metadata = {
+  title: 'サインアップ',
+}
 const Page = () => {
   return (
     <div>

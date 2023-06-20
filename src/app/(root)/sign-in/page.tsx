@@ -1,4 +1,9 @@
 import { SignInForm } from '@/feature/auth/sign-In/sign-In-form'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'サインイン',
+}
 
 const Page = () => {
   return (

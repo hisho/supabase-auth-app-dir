@@ -1,9 +1,13 @@
 import '@/app/globals.css'
+import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
-export const metadata = {
+export const metadata: Metadata = {
   description: 'Supabase Auth with Next.js App Directory',
-  title: 'Supabase Auth with Next.js App Directory',
+  title: {
+    default: 'Supabase Auth',
+    template: '%s | Supabase Auth',
+  },
 }
 
 type Props = {
