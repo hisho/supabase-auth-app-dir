@@ -1,7 +1,8 @@
 'use client'
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { timer } from '@/util/timer/timer'
 import { User } from '@supabase/auth-helpers-nextjs'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import {
   Dispatch,
   ReactNode,
@@ -30,10 +31,7 @@ export const AuthProvider = ({ children }: Props) => {
   const { auth } = createClientComponentClient()
 
   useEffect(() => {
-    Promise.allSettled([
-      auth.getUser(),
-      new Promise((r) => setTimeout(r, 3000)),
-    ]).then(([user]) => {
+    Promise.allSettled([auth.getUser(), timer(3000)]).then(([user]) => {
       if (user.status === 'fulfilled') {
         setUser(user.value.data)
       }
