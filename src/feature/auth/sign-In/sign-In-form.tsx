@@ -40,34 +40,31 @@ export const SignInForm = () => {
   }
 
   return (
-    <div>
-      <h1>サインイン</h1>
-      <form onSubmit={handleSubmit(handleSignIn)}>
-        <div className={'flex flex-col gap-4'}>
-          <label className={'block'}>
-            <p>email</p>
-            <Spacer size={1} />
-            <Input {...register('email')} />
-            <Spacer size={1} />
-            {formState.errors.email?.message && (
-              <ErrorMessage message={formState.errors.email.message} />
-            )}
-          </label>
-          <label className={'block'}>
-            <p>password</p>
-            <Spacer size={1} />
-            <Input {...register('password')} />
-            <Spacer size={1} />
-            {formState.errors.password?.message && (
-              <ErrorMessage message={formState.errors.password.message} />
-            )}
-          </label>
-        </div>
-        <Spacer size={6} />
-        <div className={'flex justify-center'}>
-          <Button>サインイン</Button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(handleSignIn)}>
+      <div className={'flex flex-col gap-4'}>
+        <label className={'block'}>
+          <p>email</p>
+          <Spacer size={1} />
+          <Input {...register('email')} />
+          <Spacer size={1} />
+          {formState.errors.email?.message && (
+            <ErrorMessage message={formState.errors.email.message} />
+          )}
+        </label>
+        <label className={'block'}>
+          <p>password</p>
+          <Spacer size={1} />
+          <Input {...register('password')} />
+          <Spacer size={1} />
+          {formState.errors.password?.message && (
+            <ErrorMessage message={formState.errors.password.message} />
+          )}
+        </label>
+      </div>
+      <Spacer size={6} />
+      <div className={'flex justify-center'}>
+        <Button>サインイン</Button>
+      </div>
+    </form>
   )
 }

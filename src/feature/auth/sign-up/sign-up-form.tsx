@@ -44,32 +44,29 @@ export const SignUpForm = () => {
   }
 
   return (
-    <div>
-      <h1>サインアップ</h1>
-      <form onSubmit={handleSubmit(handleSignUp)}>
-        <div className={'flex flex-col gap-4'}>
-          <label className={'block'}>
-            <p>email</p>
-            <Spacer size={1} />
-            <Input {...register('email')} />
-            {formState.errors.email?.message && (
-              <ErrorMessage message={formState.errors.email.message} />
-            )}
-          </label>
-          <label className={'block'}>
-            <p>password</p>
-            <Spacer size={1} />
-            <Input {...register('password')} />
-            {formState.errors.password?.message && (
-              <ErrorMessage message={formState.errors.password.message} />
-            )}
-          </label>
-        </div>
-        <Spacer size={6} />
-        <div className={'flex justify-center'}>
-          <Button>サインアップ</Button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(handleSignUp)}>
+      <div className={'flex flex-col gap-4'}>
+        <label className={'block'}>
+          <p>email</p>
+          <Spacer size={1} />
+          <Input {...register('email')} />
+          {formState.errors.email?.message && (
+            <ErrorMessage message={formState.errors.email.message} />
+          )}
+        </label>
+        <label className={'block'}>
+          <p>password</p>
+          <Spacer size={1} />
+          <Input {...register('password')} />
+          {formState.errors.password?.message && (
+            <ErrorMessage message={formState.errors.password.message} />
+          )}
+        </label>
+      </div>
+      <Spacer size={6} />
+      <div className={'flex justify-center'}>
+        <Button>サインアップ</Button>
+      </div>
+    </form>
   )
 }
