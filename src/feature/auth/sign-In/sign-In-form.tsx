@@ -1,5 +1,6 @@
 'use client'
 
+import { ErrorMessage } from '@/component/form/error-message/error-message'
 import { useForm } from '@/lib/form/use-form'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
@@ -13,7 +14,7 @@ const signInSchema = z.object({
 export const SignInForm = () => {
   const router = useRouter()
   const spabase = createClientComponentClient()
-  const { handleSubmit, register } = useForm({
+  const { formState, handleSubmit, register } = useForm({
     schema: signInSchema,
   })
 
@@ -39,8 +40,18 @@ export const SignInForm = () => {
     <div>
       <h1>サインイン</h1>
       <form onSubmit={handleSubmit(handleSignIn)}>
-        <input {...register('email')} />
-        <input {...register('password')} />
+        <label>
+          <input {...register('email')} />
+          {formState.errors.email?.message && (
+            <ErrorMessage message={formState.errors.email.message} />
+          )}
+        </label>
+        <label>
+          <input {...register('password')} />
+          {formState.errors.password?.message && (
+            <ErrorMessage message={formState.errors.password.message} />
+          )}
+        </label>
         <button>サインイン</button>
       </form>
     </div>
