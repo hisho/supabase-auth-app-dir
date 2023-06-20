@@ -1,16 +1,21 @@
 'use client'
 
+import { useForm } from '@/lib/form/use-form'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+const signInSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+})
 
 export const SignInForm = () => {
   const router = useRouter()
   const spabase = createClientComponentClient()
-  const { handleSubmit, register } = useForm<{
-    email: string
-    password: string
-  }>()
+  const { handleSubmit, register } = useForm({
+    schema: signInSchema,
+  })
 
   const handleSignIn = async ({
     email,
