@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => {
   return (
     <div className={'h-[100svh] grid grid-rows-[auto,1fr,auto]'}>
       <Header />
-      <Wrapper>{children}</Wrapper>
+      <Wrapper className={'pt-10 pb-14'}>{children}</Wrapper>
       <Footer />
     </div>
   )
