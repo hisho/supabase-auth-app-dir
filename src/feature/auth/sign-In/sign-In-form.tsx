@@ -1,11 +1,8 @@
-'use client'
-
-import { NEXT_PUBLIC_FRONTEND_URL } from '@/constant/constant'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-export const CreateUserForm = () => {
+export const SignInForm = () => {
   const router = useRouter()
   const spabase = createClientComponentClient()
   const { handleSubmit, register } = useForm<{
@@ -13,7 +10,7 @@ export const CreateUserForm = () => {
     password: string
   }>()
 
-  const handleSignUp = async ({
+  const handleSignIn = async ({
     email,
     password,
   }: {
@@ -21,26 +18,23 @@ export const CreateUserForm = () => {
     password: string
   }) => {
     try {
-      await spabase.auth.signUp({
+      await spabase.auth.signInWithPassword({
         email,
-        options: {
-          emailRedirectTo: `${NEXT_PUBLIC_FRONTEND_URL}/auth/callback/`,
-        },
         password,
       })
       router.refresh()
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.log(error)
     }
   }
 
   return (
     <div>
-      <h1>サインアップ</h1>
-      <form onSubmit={handleSubmit(handleSignUp)}>
+      <h1>サインイン</h1>
+      <form onSubmit={handleSubmit(handleSignIn)}>
         <input {...register('email')} />
         <input {...register('password')} />
-        <button>作成</button>
+        <button>サインイン</button>
       </form>
     </div>
   )

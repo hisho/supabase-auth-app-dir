@@ -1,18 +1,21 @@
-import { CreateUserForm } from '@/app/(root)/_component/create-user-form'
-import { SigInInForm } from '@/app/(root)/_component/sigin-in-form'
-import { SigOutButton } from '@/app/(root)/_component/sign-out-button'
+import { SignInForm } from '@/feature/auth/sign-In/sign-In-form'
+import { useSignOut } from '@/feature/auth/sign-out/use-sign-out'
+import { SignUpForm } from '@/feature/auth/sign-up/sign-up-form'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
 const Page = async () => {
   const spabase = createServerComponentClient({ cookies })
   const user = await spabase.auth.getUser()
+  const { handleSignOut } = useSignOut()
 
   return (
     <div>
-      <CreateUserForm />
-      <SigInInForm />
-      <SigOutButton />
+      <SignUpForm />
+      <SignInForm />
+      <button onClick={handleSignOut} type={'button'}>
+        サインアウト
+      </button>
       {JSON.stringify(user.data.user)}
     </div>
   )

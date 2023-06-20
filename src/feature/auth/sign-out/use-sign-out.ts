@@ -1,9 +1,7 @@
-'use client'
-
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
 
-export const SigOutButton = () => {
+export const useSignOut = () => {
   const router = useRouter()
   const spabase = createClientComponentClient()
   const handleSignOut = async () => {
@@ -15,9 +13,7 @@ export const SigOutButton = () => {
     }
   }
 
-  return (
-    <button onClick={handleSignOut} type={'button'}>
-      サインアウト
-    </button>
-  )
+  return {
+    handleSignOut,
+  } as const
 }
