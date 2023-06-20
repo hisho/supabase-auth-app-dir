@@ -2,6 +2,8 @@ import { Spacer } from '@/component/spacer/spacer'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
+export const dynamic = 'force-dynamic'
+
 const Page = async () => {
   const spabase = createServerComponentClient({ cookies })
   const user = await spabase.auth.getUser()
