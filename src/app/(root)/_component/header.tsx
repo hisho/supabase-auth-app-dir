@@ -9,7 +9,7 @@ export const Header = () => {
   const { handleSignOut } = useSignOut()
 
   return (
-    <header className={'bg-black py-2'}>
+    <header className={'bg-base-200 text-base-content py-2'}>
       <Wrapper>
         <div className={'flex'}>
           <Link href={'/'}>
