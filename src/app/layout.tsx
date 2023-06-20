@@ -2,6 +2,7 @@ import '@/app/globals.css'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
+export const revalidate = 0
 export const metadata: Metadata = {
   description: 'Supabase Auth with Next.js App Directory',
   title: {
