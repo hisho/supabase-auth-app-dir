@@ -1,3 +1,4 @@
+import { Wrapper } from '@/app/(root)/_component/wrapper'
 import { SignInForm } from '@/feature/auth/sign-In/sign-In-form'
 import { SignUpForm } from '@/feature/auth/sign-up/sign-up-form'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -8,11 +9,11 @@ const Page = async () => {
   const user = await spabase.auth.getUser()
 
   return (
-    <div>
+    <Wrapper>
       <SignUpForm />
       <SignInForm />
-      {JSON.stringify(user.data.user)}
-    </div>
+      <div>{JSON.stringify(user.data.user)}</div>
+    </Wrapper>
   )
 }
 
